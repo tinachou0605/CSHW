@@ -17,8 +17,8 @@
 - .filename，檔名前面有小數點，為隱藏檔
 
 # Linux指令-絕對/相對路徑的移動
-- 絕對路徑：路徑的寫法『一定由根目錄 / 寫起』，例如： /usr/share/doc 這個目錄。
-- 相對路徑：路徑的寫法『不是由 / 寫起』，例如由 /usr/share/doc 要到 /usr/share/man 底下時，寫成： 『cd ../man』，相對路徑意指『相對於目前工作目錄的路徑！』
+- 絕對路徑：路徑的寫法『一定由根目錄 / 寫起』，例如： /usr/share/doc 這個目錄。
+- 相對路徑：路徑的寫法『不是由 / 寫起』，例如由 /usr/share/doc 要到 /usr/share/man 底下時，寫成： 『cd ../man』，相對路徑意指『相對於目前工作目錄的路徑！』
 - 比較特殊的目錄
    - .：代表此層目錄
    - ..：代表上一層目錄
@@ -74,3 +74,163 @@
 # Linux指令-目錄權限
 ![image](https://user-images.githubusercontent.com/91866934/143666236-880a59b2-51a5-47ff-988b-33ada43cb1b3.png)
 
+# Linux指令-更改使用者權限
+- 檔案 file1.txt 設為所有人皆可讀取 :
+  - chmod ugo+r file1.txt
+  - chmod ugo+r file1.txt
+- 將檔案 file1.txt 與 file2.txt 設為該檔案擁有者，與其所屬同一個群體者可寫入，但其他以外的人則不可寫入 :
+  - chmod ug+w,o-w file1.txt file2.txt
+- 將 ex1.py 設定為只有該檔案擁有者可以執行 :
+  - chmod u+x ex1.py
+- 將目前目錄下的所有檔案與子目錄皆設為任何人可讀取 :
+  - chmod -R a+r *
+  - chmod a=rwx file == chmod 777 file
+  - chmod ug=rwx,o=x file ==  chmod 771 file
+
+# Linux指令-編輯文檔
+- nano
+  - Ctrl C：顯示游標所在
+  - Ctrl W：查詢命令，按下後會跳轉到末行的反白位置，輸入要查詢的內容在按enter及可。
+
+# Linux指令-編輯文檔
+- vi/vim(vim相當於vi的升級版)
+  - 一般模式：可使用上下左右進行游標宜動、刪除字元及複製貼上檔案資料。
+  - 編輯模式：編輯文字
+    - i鍵即可進入編輯模式         
+    - Esc鍵退出編輯模式
+
+# Linux指令-編輯文檔
+- vi/vim(vim相當於vi的升級版)
+  - 命令列模式
+![image](https://user-images.githubusercontent.com/91866934/143666460-8fbc54e2-280b-46ae-8f85-a69a04df7ea3.png)
+
+# Linux指令-複製檔案或目錄
+- cp：複製檔案或目錄
+- 指令：cp  -參數  來源檔案   目標檔案
+- 參數：
+  - -a：相當於-pdr 的意思
+  - -d：若來源檔為連結檔的屬性(link file)，則複製連結檔屬性而非檔案本身
+  - -i：如果要複製過去的位置已經有相同檔案，會在覆蓋前詢問是否持續進行
+  - -p：將檔案本身屬性(權限、所有者、時間)同時複製過去(一般用於備份居多)
+  - -r：針對目錄下檔案做遞歸複製(整個目錄下每一個檔案複製到你想要的位置)
+  - -s：複製成符號連結檔(symbolic link)(複製成捷徑檔)
+
+# Linux背景知識-壓縮檔案
+- 為什麼要壓縮檔案呢？
+1. 備份資料的時候，方便整理。
+2. 將檔案變小，節省電腦硬碟的空間。(但圖片、音訊、視訊等多媒體檔案壓縮率低，並不能有效節省空間)
+3. 將無數個散亂的檔案打包成一個較小的檔案，亦方便資訊在網路上流通。(可將永久免費版之付費軟體輕鬆分享)
+4. 壓縮檔案時，可以視情況進行加密。
+
+# Linux背景知識-各壓縮的差別
+- 考慮的因素
+  - 壓縮率（compression ratio），能夠將檔案壓到多小。
+  - 解壓縮所需的時間，也就是需要的 CPU 計算量。
+  - 解壓縮所需的記憶體空間。
+  - 相容性（compatibility），即解壓縮程式的普遍性，是不是大部分人都有辦法解壓縮這種格式？
+
+# Linux背景知識-各壓縮的差別
+![image](https://user-images.githubusercontent.com/91866934/143666735-279eeb93-3216-47bc-b12d-0a6d12113b62.png)
+![image](https://user-images.githubusercontent.com/91866934/143666757-db98f61c-b3f1-4e2d-add9-833b5234209d.png)
+- 需要在記憶體很小的機器（如小於 128MB）上解壓縮時，則選擇 gzip 格式。
+- 需要在很簡單、沒有什麼工具可用的機器解壓縮時，則選擇 gzip 格式。
+- 需要節省網路頻寬、縮短下載所需要的時間時，則選擇 xz 格式。
+- 需要有最好的壓縮率時，則選擇 tar.xz  格式。
+
+# Linux指令-壓縮檔案
+- gzip
+  - 壓縮：gzip FileName
+- 解壓縮：
+  - gunzip FileName.gz
+  - gzip -d FileName.gz
+- xz
+  - 壓縮：xz -z FileName
+  - 解壓縮：xz -d FileName.xz
+- tar.gz
+  - 壓縮：tar -zcvf FileName.tar.gz DirName
+  - 解壓縮：tar -zxvf FileName.tar.gz
+
+# Linux指令-檔案搜尋
+- find [path] [option] [action] filename
+  - option
+    - -size EX：找出大於500M的檔案→ -size +500M
+    - -name EX：找出為照片的檔案→ -name "*.jpg"
+    - -type EX：-type f→ 一般檔案;  -type d→ 一般目錄
+    - -user EX：同時找兩個擁有者的檔案→-user user1 -o -user user2
+- action -exec
+  - ls
+  - print
+- which filename
+  - -a：系統會顯示所有被找到的命令執行檔之完整路徑
+  - -n<文件名長度>指定文件名長度，指定的長度必須大於或等於所有文件中最長的文件名。
+  - -p<文件名長度>與-n参數相同，但此處的<文件名長度>包括了文件的路徑。
+  - -w：指定輸出欄位的寬度。
+  - -V：顯示版本訊息。
+
+# Linux指令-檔案內容查閱
+- cat  從第一行顯示檔案內容、形成新檔案
+  - cat -n file1 > file2→把file1的檔案內容加上行號後輸入file2檔案
+    - -n  → 由1開始對所有輸出的行數編號
+    - >→ 將多個文件覆蓋到目標文件中
+    - >>→ 將多個文件追加到目標文件中，不覆蓋
+- tac  從最後一行開始顯示
+  - tac -r -s 'x\|[^x]' test.log→一個接著一個字符的反轉一個文件
+    - -r→將分隔符作為基礎正規表達是處理
+    - -s→使用String作為分隔符代替默認的換行符
+- more 一頁一頁的顯示檔案內容
+   - more +20 testfile→從第20行開始顯示testfile的文檔內容
+     - ENTER：向下n行(default為1行)
+     - Ctrl+F/SPACE：向下滾動一屏
+     - Ctrl+B：返回上一屏
+- less 與 more 類似，顯示檔案室允許用戶既可以向前又可以向後翻頁閱讀檔案
+   - ps -ef |less→ps查看進程信息並通過less分頁顯示	
+     - j→下一行
+     - k→上一行
+     - G→移動到最後一行
+     - g→移動到第一行
+- head 取出前面幾行(預設10行)
+  - -n：後面接數字，代表幾行的意思
+- tail 取出後面幾行(預設10行)
+  - -n：後面接數字，代表幾行的意思
+  - -n +20：只想列出20行以後的資料
+
+# Linux背景知識-資料傳輸
+- port
+  -通訊埠號是 TCP/UDP 與上層通訊的通道，當 TCP/UDP 要傳送訊息時，會指定要由哪一個通訊埠號來接收。一些常用的服務會使用特定的埠號來等待要求的訊息。埠號是由 16 個位元所組成的號碼，0 ~ 255 為保留號碼，256 ~ 65535 則可自行設定。 
+- TCP/IP
+  - TCP/IP提供了點對點的連結機制，將資料應該如何封裝、定址、傳輸、路由以及在目的地如何接收，都加以標準化。它將軟體通信過程抽象化為四個抽象層，採取協議堆疊的方式，分別實作出不同通信協定。協定套組下的各種協議，依其功能不同，被分別歸屬到這四個階層之中，常被視為是簡化的七層OSI模型。
+- 當瀏覽器輸入網址，發出一個 GET 請求時
+1. TCP三向交握
+2. 瀏覽器請求、資料傳輸、渲染畫面
+3. TCP四次揮手，結束連線
+
+# Linux指令-網路相關
+- route
+- netstat -r (MAC)
+  - add : 新增一條路由規則
+  - del : 刪除一條路由規則
+  - -net : 目的地址是一個網路
+  - -host : 目的地址是一個主機
+  - target : 目的網路或主機
+  - netmask : 目的地址的網路掩碼
+  - gw : 路由資料包通過的閘道器
+  - dev : 為路由指定的網路介面
+- ping  <dr>  常用網路檢測工具，可藉由發送 ICMP ECHO_REQUEST 封包，檢查自己與特定設備之間的網路是否暢通，並同時測量網路連線的來回通訊延遲時間
+  - -n：參數指定封包數→EX：ping -n 10 blog.gtwang.org
+  - -t：持續監看網路是否正常→EX：ping -t blog.gtwang.org
+  - -4/-6：IPv4/IPv6
+  - -c：指定Ping次數→EX：ping -c 4 blog.gtwang.org
+  - -s：指定發送的數據字結數→EX：ping -s 1024 facebook.com
+  - -i：指定收發資訊間隔時間→EX：ping -i 0.4 facebook.com
+- 影響網路速度的因素：
+  - 延遲（Latency）：封包從來源端至目的端中間所花的時間
+  - 頻寬（Bandwidth）：傳輸媒介的最大吞吐量
+- 網路延遲（Latency）的組成元素:
+  - propagation delay：封包在網路線上傳輸所花費的時間，與網路線上電子訊號跑的速度有關，這個時間就是距離除以訊號傳送速度所得到的數值。
+  - transmission delay：網路卡將資料傳送到網路線上所花的時間，與網路設備的傳送速度有關。
+  - nodal processing delay：路由器處理封包表頭、檢查位元資料錯誤與尋找配送路徑等所花費的時間。
+  - queuing delay：路由器因為某些因素無法立刻將封包傳送到網路上，造成封包暫存在佇列中等待的時間。
+- netstat
+  -查看端口是否被占用：netstat -al grep 3306
+  - 查看數據包統計信息：netstat -s
+  - 查看路由信息：netstat -r
