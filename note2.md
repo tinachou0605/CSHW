@@ -200,3 +200,20 @@
 - 觀看當前狀態：git status
 - 提交版本：git commit -m “修改紀錄”
 - 瀏覽歷史紀錄：git log
+# Git-使用方法
+- 新增Working directory(工作目錄)
+  - 建立資料夾(ex：mkdir cs6_git)
+  - 移動到資料夾：$ cd cs6_git
+  - 將專案資料夾建立成git repository：$ git init (初始化資料夾)
+  - 新增檔案(ex：index.html)
+  - 查看資料夾內檔案變化：$ git status
+- 進入Staging area(暫存區)
+  - 將新增或變更的檔案加入追蹤：$ git add index.html
+  - 查看資料夾內檔案變化：$ git status
+  - 再新增一個檔案(ex：README.md)
+  - 查看資料夾內檔案的變化：$ git status
+  - 將所有的檔案加入追蹤：$ git add --all
+- 進入Local repository(本地數據庫)
+  - 將檔案移入本地repo，提交新版本：$ git commit -m “First release of Hello”
+  - 使用$ git status觀察：$ git status
+  - 查看新增的版本(歷史紀錄)：$ git log
