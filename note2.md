@@ -200,6 +200,13 @@
 - 觀看當前狀態：git status
 - 提交版本：git commit -m “修改紀錄”
 - 瀏覽歷史紀錄：git log
+- 取消追蹤檔案：git rm –cached <檔案名稱>
+- 取消commit：git reset --mixed HEAD^
+- 連接遠端數據庫：git remote add origin <remote網址>
+- 將本地資料推到remote端：git push -u origin master
+- 將遠端資料拉回來：git fetch
+- 將拉回的資料和本地資料合併：git merge
+- git pull = git fetch + git merge
 # Git-使用方法
 - 新增Working directory(工作目錄)
   - 建立資料夾(ex：mkdir cs6_git)
@@ -217,3 +224,38 @@
   - 將檔案移入本地repo，提交新版本：$ git commit -m “First release of Hello”
   - 使用$ git status觀察：$ git status
   - 查看新增的版本(歷史紀錄)：$ git log
+# Git- 取消追蹤檔案
+- 檔案從Staging area(暫存區)退回Working directory工作目錄
+  - 修改index.html：vi index.html
+  - 查看狀態：$ git status
+  - 將檔案加入索引：$ git add index.html
+  - 查看狀態：$ git status
+  - 取消追蹤檔案：$ git rm –cached index.html
+  - 查看狀態：$ git status
+# Git- 取消commit
+- 將commit拆掉
+  - 新增檔案：vi hello.py
+  - 將檔案加入索引：$ git add .
+  - 提交版本：$ git commit -m “print method”
+  - 查看歷史紀錄：$ git log
+  - 取消commit：$ git reset --mixed HEAD^
+  - 查看歷史紀錄：$ git log
+  - 查看狀態：$ git status
+# Git- Reset模式
+- --mixed：預設模式，Commit 拆出來的檔案會留在工作目錄，但不會留在暫存區
+- --soft：工作目錄跟暫存區的檔案都不會被丟掉
+- --hard：工作目錄以及暫存區的檔案都會丟掉
+# Git-使用方法
+- 進入Remote repository(遠端數據庫)
+  - 雲端跟本地端連動：$ git remote add origin <remote網址>
+  - Push Local master(主幹)進入Remote：$ git push --set-upstream origin master
+  - 回到Github查看
+- Remote repository(遠端數據庫)
+  - 到github上新增或編輯README.md
+  - 把遠端東西拉回來：$ git fetch
+  - 查看狀態：$ git status
+  - 查看歷史紀錄：$ git log
+  - 比較本地分支和遠端分之內容的不同：$ git diff origin/master
+  - 將遠端和本地端的內容做合併：$ git merge origin/master
+  - 查看狀態：$ git status
+  - Pull下載更新：$ git pull origin
